@@ -1,52 +1,47 @@
 "use strict"
 
-import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import {Header} from './header.js';
-import {Home} from './home.js';
-import {BookList} from '../components/BookList';
+import Header from './header.js';
+import Home from './home.js';
+import BookList from '../components/BookList';
+import AuthorList from '../components/AuthorList';
 import BookStore from '../stores/bookStore';
 
+export default function App() {
 
-export class App extends React.Component{
+    const [book, setBook] = useState({
+        bookList: [],
+        authorList: [],
+        readState: {
+            pending: false,
+            success: false,
+            failure: false
+        },
+        error: ''
+    });
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            book:{
-                bookList: [],
-                readState:{
-                    pending:false,
-                    success:false,
-                    failure:false
-                },
-                error: ''
-            }
+    const _onBookChange = () => {
+        setBook(BookStore.getAllBooks());
+    }
+
+    useEffect(() => {
+        BookStore.addChangeListener(_onBookChange);
+
+        return () => {
+            BookStore.removeChangeListener(_onBookChange);
         }
-    }
+    });
 
-    render() {
-        return(
-            <div>
-                <Header />
-                <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/books' render={(props) => (<BookList {...props} book={this.state.book} />)}/>
-                </Switch>
-            </div>
-        );
-    }
-
-    componentDidMount(){
-        BookStore.addChangeListener(this._onBookChange.bind(this));
-    }
-
-    componentWillUnmount(){
-        BookStore.removeChangeListener(this._onBookChange.bind(this));
-    }
-
-    _onBookChange(){
-        this.setState({book: BookStore.getAllBooks()});
-    }
+    return (
+        <div>
+            <Header />
+            <Switch>
+                <Route exact path='/' component={Home} />
+                <Route path='/books' render={(props) => <BookList {...props} book={book} />}/>
+                <Route path='/authors' render={(props) => <AuthorList {...props} book={book} />}/>
+            </Switch>
+        </div>
+    );
 }

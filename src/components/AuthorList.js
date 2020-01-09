@@ -4,26 +4,20 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BookActions from '../actions/bookActions';
 
-export default function BookList(props) {
+export default function AuthorList(props) {
 
-    useEffect(() => {
-        BookActions.readBooks();
-    });
-
-    const createBookRow = (book) => {
+    const createAuthorRow = (author) => {
         return (
-            <tr key={book.book_id}>
-                <td> {book.book_id} </td>
-                <td> {book.title} </td>
-                <td> {book.author} </td>
+            <tr key={author.author_id}>
+                <td> {author.author_id} </td>
+                <td> {author.author} </td>
             </tr>
         );
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('hitting handleSubmit');
-    }
+    useEffect(() => {
+        BookActions.readBooks();
+    });
 
     let content = '';
 
@@ -37,19 +31,18 @@ export default function BookList(props) {
         );
     }
 
-
     if (props.book.readState.success) {
         content =
             (<table className="table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Title</th>
                         <th>Author</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {props.book.bookList.map(createBookRow, this)}
+
+                    {props.book.authorList.map(createAuthorRow, this)}
                 </tbody>
             </table>)
     }
@@ -58,25 +51,20 @@ export default function BookList(props) {
         content =
             (
                 <div className="alert alert-danger" role="alert">
-                    Error while loading books!
+                    Error while loading authors!
                 </div>
             )
     }
 
     return (
         <div>
-            <h1>Books</h1>
+            <h1>Authors</h1>
             {content}
-            <form>
-                <input id="add-book-title" placeholder="title"></input>
-                <input id="add-book-author" placeholder="author"></input>
-                <button type="submit" onClick={handleSubmit}>Submit Book</button>
-            </form>
         </div>
     );
 }
 
-BookList.propTypes = {
+AuthorList.propTypes = {
     book: PropTypes.object.isRequired
 };
 

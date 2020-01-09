@@ -1,72 +1,101 @@
 import Dispatcher from '../dispatcher/appDispatcher';
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
 
 let _bookStore = {
-    book:{
+    book: {
         bookList: [],
-        readState:{
-            pending:false,
-            success:false,
-            failure:false
+        authorList: [],
+        readState: {
+            pending: false,
+            success: false,
+            failure: false
         },
         error: ''
     }
 };
 
-class BookStoreClass extends EventEmitter{
+class BookStoreClass extends EventEmitter {
 
-    addChangeListener(cb){
+    addChangeListener(cb) {
         this.on(CHANGE_EVENT, cb);
     }
 
-    removeChangeListener(cb){
+    removeChangeListener(cb) {
         this.removeListener(CHANGE_EVENT, cb);
     }
 
-    emitChange(){
+    emitChange() {
         this.emit(CHANGE_EVENT);
     }
 
 
-    getAllBooks(){
+    getAllBooks() {
         return _bookStore.book;
     }
 
-    resetReadState(){
+    resetReadState() {
         _bookStore.book.readState = {
-            pending:false,
-            success:false,
-            failure:false
-          }
+            pending: false,
+            success: false,
+            failure: false
+        }
     }
 }
 
 const BookStore = new BookStoreClass();
 
-Dispatcher.register( (action) => {
+Dispatcher.register((action) => {
 
-    switch (action.actionType){
-        case 'read_books_successful':
+    switch (action.actionType) {
+        case 'read_books_successful': {
             BookStore.resetReadState();
             _bookStore.book.bookList = action.data;
+            _bookStore.book.authorList = Array.from(new Set(action.data.map((book,index) => {
+                return {
+                    author_id: index + 1,
+                    author: book.author
+                };
+            })));
             _bookStore.book.readState.success = true;
             BookStore.emitChange();
             break;
-        case 'read_books_failure':
+        }
+        case 'read_books_failure': {
             BookStore.resetReadState();
             _bookStore.book.readState.failure = true;
             BookStore.emitChange();
             break;
-        case 'read_books_started':
+        }
+        case 'read_books_started': {
             BookStore.resetReadState();
             _bookStore.book.readState.pending = true;
             BookStore.emitChange();
             break;
+        }
+        case 'add_books_successful': {
+            BookStore.resetReadState();
+            console.log('adding books here');
+            _bookStore.book.readState.success = true;
+            BookStore.emitChange();
+            break;
+        }
+        case 'add_books_failure': {
+            BookStore.resetReadState();
+            _bookStore.book.readState.failure = true;
+            BookStore.emitChange();
+            break;
+        }
+        case 'add_books_started': {
+            BookStore.resetReadState();
+            _bookStore.book.readState.pending = true;
+            BookStore.emitChange();
+            break;
+        }
         default:
             return;
     }
-} );
+});
 
 export default BookStore;

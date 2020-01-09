@@ -19,6 +19,24 @@ const BooksActions = {
                 actionType: 'read_books_failure'
             });
         });
+    },
+    addBook: function(book) {
+        Dispatcher.dispatch({
+            actionType: 'add_books_started'
+        });
+        axios.post(`http://www.mocky.io/v2/5daca80c30000092002987ad`, book)
+        .then(res => {
+            Dispatcher.dispatch({
+                actionType: 'add_books_successful',
+                data:  res.data
+            });
+        })
+        .catch( (error) => {
+            console.log(error);
+            Dispatcher.dispatch({
+                actionType: 'add_books_failure'
+            });
+        });
     }
 }
 
