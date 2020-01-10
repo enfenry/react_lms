@@ -8,7 +8,8 @@ export default function BookList(props) {
 
     useEffect(() => {
         BookActions.readBooks();
-    });
+        props.setBook(props.book);
+    }, [props.book.readState]);
 
     const createBookRow = (book) => {
         return (
@@ -25,48 +26,51 @@ export default function BookList(props) {
         console.log('hitting handleSubmit');
     }
 
-    let content = '';
+    const renderContent = () => {
+        let content = '';
 
-    if (props.book.readState.pending) {
-        content = (
-            <div className="d-flex justify-content-center">
-                <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
+        if (props.book.readState.pending) {
+            content = (
+                <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
                 </div>
-            </div>
-        );
-    }
+            );
+        }
 
 
-    if (props.book.readState.success) {
-        content =
-            (<table className="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.book.bookList.map(createBookRow, this)}
-                </tbody>
-            </table>)
-    }
+        if (props.book.readState.success) {
+            content =
+                (<table className="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.book.bookList.map(createBookRow, this)}
+                    </tbody>
+                </table>)
+        }
 
-    if (props.book.readState.failure) {
-        content =
-            (
-                <div className="alert alert-danger" role="alert">
-                    Error while loading books!
+        if (props.book.readState.failure) {
+            content =
+                (
+                    <div className="alert alert-danger" role="alert">
+                        Error while loading books!
                 </div>
-            )
+                )
+        }
+        return content;
     }
 
     return (
         <div>
             <h1>Books</h1>
-            {content}
+            {renderContent()}
             <form>
                 <input id="add-book-title" placeholder="title"></input>
                 <input id="add-book-author" placeholder="author"></input>
@@ -76,8 +80,10 @@ export default function BookList(props) {
     );
 }
 
+
 BookList.propTypes = {
-    book: PropTypes.object.isRequired
+    book: PropTypes.object.isRequired,
+    setBook: PropTypes.func.isRequired
 };
 
 

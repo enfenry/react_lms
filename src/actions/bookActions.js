@@ -12,6 +12,7 @@ const BooksActions = {
                 actionType: 'read_books_successful',
                 data:  res.data
             });
+            console.log('res.data',res.data);
         })
         .catch( (error) => {
             console.log(error);

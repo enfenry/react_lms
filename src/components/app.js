@@ -27,20 +27,20 @@ export default function App() {
     }
 
     useEffect(() => {
-        BookStore.addChangeListener(_onBookChange);
+        BookStore.addChangeListener(_onBookChange.bind(this));
 
         return () => {
-            BookStore.removeChangeListener(_onBookChange);
+            BookStore.removeChangeListener(_onBookChange.bind(this));
         }
-    });
+    },[book]);
 
     return (
         <div>
             <Header />
             <Switch>
                 <Route exact path='/' component={Home} />
-                <Route path='/books' render={(props) => <BookList {...props} book={book} />}/>
-                <Route path='/authors' render={(props) => <AuthorList {...props} book={book} />}/>
+                <Route path='/books' render={(props) => <BookList {...props} book={book} setBook={setBook} />}/>
+                <Route path='/authors' render={(props) => <AuthorList {...props} book={book} setBook={setBook} />}/>
             </Switch>
         </div>
     );

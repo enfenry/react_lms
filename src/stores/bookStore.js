@@ -30,7 +30,6 @@ class BookStoreClass extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-
     getAllBooks() {
         return _bookStore.book;
     }
@@ -60,6 +59,7 @@ Dispatcher.register((action) => {
             })));
             _bookStore.book.readState.success = true;
             BookStore.emitChange();
+            console.log('_bookStore.book.readState.success',_bookStore.book.readState.success);
             break;
         }
         case 'read_books_failure': {
