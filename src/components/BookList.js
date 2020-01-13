@@ -3,6 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BookActions from '../actions/bookActions';
+import BookModal from '../components/BookModal';
+import { Button } from 'reactstrap';
 
 export class BookList extends React.Component {
 
@@ -24,6 +26,7 @@ export class BookList extends React.Component {
     }
 
     handleUpdate(event) {
+        this.props.setModal();
         console.log(event.target);
     }
 
@@ -82,6 +85,8 @@ export class BookList extends React.Component {
         return (
             <div>
                 <h1>Books</h1>
+                <BookModal modal={this.props.modal} setModal={this.props.setModal} />
+                <Button color="primary" onClick={this.props.setModal}>Add Book</Button>
                 {content}
             </div>
         );
@@ -89,6 +94,8 @@ export class BookList extends React.Component {
 }
 
 BookList.propTypes = {
+    modal: PropTypes.bool,
+    setModal: PropTypes.func,
     book: PropTypes.object.isRequired
 };
 

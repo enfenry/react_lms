@@ -1,43 +1,64 @@
 "use strict"
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // import BookActions from '../actions/bookActions';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Form, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const BookModal = (props) => {
-  const {
-    buttonLabel,
-    className,
-    modal,
-    setModal
-  } = props;
+    const {
+        title,
+        author,
+        publisher,
+        isAdding,
+        modal,
+        setModal
+    } = props;
 
-  const toggle = () => setModal(!modal);
+    const handleSubmit = () => {
+        if(isAdding) {
+            console.log('add!')
+        }
+        else {
+            console.log('update!')
+        }
+        setModal();
+    }
 
-  return (
-    <div>
-      <Button color="primary" onClick={toggle}>{buttonLabel}</Button>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-        <ModalBody>
-          
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-          <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
-      </Modal>
-    </div>
-  );
+    return (
+        <Modal isOpen={modal} toggle={setModal}>
+            <ModalHeader toggle={setModal}>Modal title</ModalHeader>
+            <ModalBody>
+                <Form>
+                    <div className="form-group">
+                        <label htmlFor="recipient-name" className="col-form-label">Title:</label>
+                        <input type="text" className="form-control" id="title-name" >{title}</input>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="message-text" className="col-form-label">Author:</label>
+                        <textarea className="form-control" id="author-id">{author}</textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="message-text" className="col-form-label">Publisher:</label>
+                        <textarea className="form-control" id="publisher-id">{publisher}</textarea>
+                    </div>
+                </Form>
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={handleSubmit}>Submit</Button>{' '}
+                <Button color="secondary" onClick={setModal}>Close</Button>
+            </ModalFooter>
+        </Modal>
+    );
 }
 
 BookModal.propTypes = {
-//     book: PropTypes.object.isRequired
-    modal: PropTypes.bool,
-    setModal: PropTypes.func,
-    buttonLabel: PropTypes.string.isRequired,
-    className: PropTypes.string.isRequired
+    title: PropTypes.string,
+    author: PropTypes.number,
+    publisher: PropTypes.number,
+    isAdding: PropTypes.bool,
+    modal: PropTypes.bool.isRequired,
+    setModal: PropTypes.func.isRequired
 };
 
 export default BookModal;
