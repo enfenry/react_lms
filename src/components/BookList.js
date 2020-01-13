@@ -4,40 +4,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BookActions from '../actions/bookActions';
 
-export class BookList extends React.Component{
+export class BookList extends React.Component {
 
-    createBookRow(book){
+    createBookRow(book) {
         return (
             <tr key={book.id}>
                 <td> {book.id} </td>
                 <td> {book.title} </td>
                 <td> {book.author} </td>
                 <td> {book.publisher} </td>
+                <td><button className="btn btn-secondary update" onClick={this.handleUpdate}>Update</button></td>
+                <td><button className="btn btn-danger delete" onClick={this.handleDelete}>Delete</button></td>
             </tr>
         );
     }
 
-    componentDidMount(){
+    handleAdd(event) {
+        console.log(event.target);
+    }
+
+    handleUpdate(event) {
+        console.log(event.target);
+    }
+
+    handleDelete(event) {
+        console.log(event.target);
+    }
+
+    componentDidMount() {
         BookActions.readBooks();
     }
 
     render() {
-        
+
         let content = '';
-        
-        if(this.props.book.readState.pending){
+
+        if (this.props.book.readState.pending) {
             content = (
                 <div className="d-flex justify-content-center">
                     <div className="spinner-border" role="status">
                         <span className="sr-only">Loading...</span>
-                    </div> 
+                    </div>
                 </div>
             );
         }
-        
 
-        if(this.props.book.readState.success){
-            content = 
+
+        if (this.props.book.readState.success) {
+            content =
                 (<table className="table">
                     <thead>
                         <tr>
@@ -45,26 +59,29 @@ export class BookList extends React.Component{
                             <th>Title</th>
                             <th>Author</th>
                             <th>Publisher</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.props.book.bookList.map(this.createBookRow, this)}
-                    </tbody>    
+                    </tbody>
                 </table>)
         }
 
-        if(this.props.book.readState.failure){
-            content = 
-            (
-                <div className="alert alert-danger" role="alert">
-                    Error while loading books!
+        if (this.props.book.readState.failure) {
+            content =
+                (
+                    <div className="alert alert-danger" role="alert">
+                        Error while loading books!
                 </div>
-            )
+                )
         }
 
-        return(
+        return (
             <div>
                 <h1>Books</h1>
+                <button className="btn btn-primary add" onClick={this.handleAdd}>Add Book</button>
                 {content}
             </div>
         );
