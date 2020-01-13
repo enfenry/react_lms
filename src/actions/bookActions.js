@@ -26,7 +26,7 @@ const BooksActions = {
         });
         axios.post(`http://www.mocky.io/v2/5e1bca1d3100006c004f33d8`, book)
             .then(res => {
-                console.log('res.data', res.data);
+                console.log('addBook res.data', res.data);
                 Dispatcher.dispatch({
                     actionType: 'read_books_successful',
                     data: res.data
@@ -45,7 +45,7 @@ const BooksActions = {
         });
         axios.put(`http://www.mocky.io/v2/5e1bca1d3100006c004f33d8`, book)
             .then(res => {
-                console.log('res.data', res.data);
+                console.log('updateBook res.data', res.data);
                 Dispatcher.dispatch({
                     actionType: 'read_books_successful',
                     data: res.data
@@ -64,7 +64,7 @@ const BooksActions = {
         });
         axios.delete(`http://www.mocky.io/v2/5e1bca1d3100006c004f33d8`, { params: { id: book.id } })
             .then(res => {
-                console.log('res.data', res.data);
+                console.log('deleteBook res.data', res.data);
                 Dispatcher.dispatch({
                     actionType: 'read_books_successful',
                     data: res.data

@@ -16,7 +16,15 @@ export class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
+            modal: {
+                show: false,
+                book: {
+                    title: '',
+                    author: null,
+                    publisher: null,
+                    isAdding: false,
+                }
+            },
             book: {
                 bookList: [],
                 readState: {
@@ -38,8 +46,30 @@ export class App extends React.Component {
         }
     }
 
-    setModal() {
-        this.setState({ modal: !(this.state.modal) })
+    toggleModal() {
+        // this.setState({ modal: { show: !(this.state.modal.show) } })
+
+        this.setState(state => (({
+            modal: {
+                ...state.modal,
+                show: !(this.state.modal.show)
+            }
+        })))
+    }
+
+    fillModal(book, isAdding) {
+        this.setState(state => (({
+            modal: {
+                ...state.modal,
+                book: {
+                    id: book.id,
+                    title: book.title,
+                    author: book.author,
+                    publisher: book.publisher,
+                    isAdding: isAdding
+                }
+            }
+        })))
     }
 
     render() {
@@ -48,7 +78,10 @@ export class App extends React.Component {
                 <Header />
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route path='/books' render={(props) => (<BookList {...props} book={this.state.book} modal={this.state.modal} setModal={this.setModal.bind(this)} />)} />
+                    <Route path='/books' render={(props) => (
+                        <BookList {...props} book={this.state.book} modal={this.state.modal} toggleModal={this.toggleModal.bind(this)}
+                            fillModal={this.fillModal.bind(this)} />
+                    )} />
                     <Route path='/authors' render={(props) => (<AuthorList {...props} author={this.state.author} />)} />
                 </Switch>
             </div>

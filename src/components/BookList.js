@@ -21,17 +21,19 @@ export class BookList extends React.Component {
         );
     }
 
-    handleAdd(event) {
-        console.log(event.target);
+    handleAdd() {
+        this.props.toggleModal();
+        this.props.fillModal({},true);
     }
 
-    handleUpdate(event) {
-        this.props.setModal();
-        console.log(event.target);
+    handleUpdate(book) {
+        this.props.toggleModal();
+        this.props.fillModal(book,false);
+        console.log('book at handleUpdate',book);
     }
 
     handleDelete(book) {
-        console.log('book', book);
+        console.log('book at handleDelete', book);
         BookActions.deleteBook(book);
     }
 
@@ -85,8 +87,8 @@ export class BookList extends React.Component {
         return (
             <div>
                 <h1>Books</h1>
-                <BookModal modal={this.props.modal} setModal={this.props.setModal} />
-                <Button color="primary" onClick={this.props.setModal}>Add Book</Button>
+                <BookModal modal={this.props.modal} toggleModal={this.props.toggleModal} />
+                <Button color="primary" onClick={() => {this.handleAdd()}}>Add Book</Button>
                 {content}
             </div>
         );
@@ -94,8 +96,9 @@ export class BookList extends React.Component {
 }
 
 BookList.propTypes = {
-    modal: PropTypes.bool,
-    setModal: PropTypes.func,
+    modal: PropTypes.object,
+    toggleModal: PropTypes.func,
+    fillModal: PropTypes.func,
     book: PropTypes.object.isRequired
 };
 
