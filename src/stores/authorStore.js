@@ -15,7 +15,7 @@ let _authorStore = {
     }
 };
 
-class authorStoreClass extends EventEmitter{
+class AuthorStoreClass extends EventEmitter{
 
     addChangeListener(cb){
         this.on(CHANGE_EVENT, cb);
@@ -30,7 +30,7 @@ class authorStoreClass extends EventEmitter{
     }
 
 
-    getAllauthors(){
+    getAllAuthors(){
         return _authorStore.author;
     }
 
@@ -43,30 +43,30 @@ class authorStoreClass extends EventEmitter{
     }
 }
 
-const authorStore = new authorStoreClass();
+const AuthorStore = new AuthorStoreClass();
 
 Dispatcher.register( (action) => {
 
     switch (action.actionType){
         case 'read_authors_successful':
-            authorStore.resetReadState();
+            AuthorStore.resetReadState();
             _authorStore.author.authorList = action.data;
             _authorStore.author.readState.success = true;
-            authorStore.emitChange();
+            AuthorStore.emitChange();
             break;
         case 'read_authors_failure':
-            authorStore.resetReadState();
+            AuthorStore.resetReadState();
             _authorStore.author.readState.failure = true;
-            authorStore.emitChange();
+            AuthorStore.emitChange();
             break;
         case 'read_authors_started':
-            authorStore.resetReadState();
+            AuthorStore.resetReadState();
             _authorStore.author.readState.pending = true;
-            authorStore.emitChange();
+            AuthorStore.emitChange();
             break;
         default:
             return;
     }
 } );
 
-export default authorStore;
+export default AuthorStore;
