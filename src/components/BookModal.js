@@ -14,11 +14,11 @@ const BookModal = (props) => {
     const handleSubmit = () => {
         if(modal.book.isAdding) {
             BookActions.addBook(modal.book);
-            console.log('add!')
+            console.log('added!')
         }
         else {
             BookActions.updateBook(modal.book);
-            console.log('update!')
+            console.log('updated!')
         }
         toggleModal();
     }
@@ -30,15 +30,15 @@ const BookModal = (props) => {
                 <Form>
                     <div className="form-group">
                         <label htmlFor="recipient-name" className="col-form-label">Title:</label>
-                        <textarea className="form-control" id="title-name" defaultValue= {modal.title}/>
+                        <textarea className="form-control" id="title-name" defaultValue= {modal.book.title}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="message-text" className="col-form-label">Author:</label>
-                        <textarea className="form-control" id="author-id" defaultValue= {modal.author}/>
+                        <textarea className="form-control" id="author-id" defaultValue= {modal.book.author}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="message-text" className="col-form-label">Publisher:</label>
-                        <textarea className="form-control" id="publisher-id" defaultValue={modal.publisher} />
+                        <textarea className="form-control" id="publisher-id" defaultValue={modal.book.publisher} />
                     </div>
                 </Form>
             </ModalBody>
