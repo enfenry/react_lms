@@ -7,6 +7,7 @@ import Header from './header.js';
 import Home from './home.js';
 import { AuthorList } from '../components/AuthorList';
 import { BookList } from '../components/BookList';
+import BookModal from '../components/BookModal';
 import AuthorStore from '../stores/authorStore';
 import BookStore from '../stores/bookStore';
 
@@ -16,6 +17,7 @@ export class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            modal: false,
             book: {
                 bookList: [],
                 readState: {
@@ -37,10 +39,15 @@ export class App extends React.Component {
         }
     }
 
+    setModal () {
+        this.setState({ modal: !(this.state.modal) })
+    }
+
     render() {
         return (
             <div>
                 <Header />
+                <BookModal modal={this.state.modal} setModal={this.setModal.bind(this)} buttonLabel='Add Book' className='hello-modal' />
                 <Switch>
                     <Route exact path='/' component={Home} />
                     <Route path='/books' render={(props) => (<BookList {...props} book={this.state.book} />)} />

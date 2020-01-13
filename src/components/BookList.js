@@ -13,8 +13,8 @@ export class BookList extends React.Component {
                 <td> {book.title} </td>
                 <td> {book.author} </td>
                 <td> {book.publisher} </td>
-                <td><button className="btn btn-secondary update" onClick={this.handleUpdate}>Update</button></td>
-                <td><button className="btn btn-danger delete" onClick={this.handleDelete}>Delete</button></td>
+                <td><button className="btn btn-secondary update" onClick={() => this.handleUpdate(book)}>Update</button></td>
+                <td><button className="btn btn-danger delete" onClick={() => this.handleDelete(book)}>Delete</button></td>
             </tr>
         );
     }
@@ -27,8 +27,9 @@ export class BookList extends React.Component {
         console.log(event.target);
     }
 
-    handleDelete(event) {
-        console.log(event.target);
+    handleDelete(book) {
+        console.log('book', book);
+        BookActions.deleteBook(book);
     }
 
     componentDidMount() {
@@ -81,7 +82,6 @@ export class BookList extends React.Component {
         return (
             <div>
                 <h1>Books</h1>
-                <button className="btn btn-primary add" onClick={this.handleAdd}>Add Book</button>
                 {content}
             </div>
         );
