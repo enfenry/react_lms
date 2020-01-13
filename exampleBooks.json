@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "title": "Harry Potter and the Sorcerer's Stone",
+        "author": 1,
+        "publisher": 1
+    },
+    {
+        "id": 2,
+        "title": "Harry Potter and the Chamber of Secrets",
+        "author": 1,
+        "publisher": 1
+    },
+    {
+        "id": 3,
+        "title": "Harry Potter and the Prisoner of Azkaban",
+        "author": 1,
+        "publisher": 1
+    },
+    {
+        "id": 4,
+        "title": "Harry Potter and the Goblet of Fire",
+        "author": 1,
+        "publisher": 1
+    },
+    {
+        "id": 5,
+        "title": "Harry Potter and the Order of the Phoenix",
+        "author": 1,
+        "publisher": 1
+    },
+    {
+        "id": 6,
+        "title": "Harry Potter and the Half-Blood Prince",
+        "author": 1,
+        "publisher": 1
+    },
+    {
+        "id": 7,
+        "title": "Harry Potter and the Deathly Hallows",
+        "author": 1,
+        "publisher": 1
+    },
+    {
+        "id": 8,
+        "title": "The Magician's Nephew",
+        "author": 2,
+        "publisher": 2
+    },
+    {
+        "id": 9,
+        "title": "The Lion, the Witch, and the Wardrobe",
+        "author": 2,
+        "publisher": 2
+    },
+    {
+        "id": 10,
+        "title": "A Horse and His Boy",
+        "author": 2,
+        "publisher": 2
+    },
+    {
+        "id": 11,
+        "title": "Prince Caspian",
+        "author": 2,
+        "publisher": 2
+    },
+    {
+        "id": 12,
+        "title": "The Voyage of the Dawn Treader",
+        "author": 2,
+        "publisher": 2
+    },
+    {
+        "id": 13,
+        "title": "The Silver Chair",
+        "author": 2,
+        "publisher": 2
+    },
+    {
+        "id": 14,
+        "title": "The Last Battle",
+        "author": 2,
+        "publisher": 2
+    },
+    {
+        "id": 15,
+        "title": "Alice's Adventures in Wonderland",
+        "author": 3,
+        "publisher": 1
+    },
+    {
+        "id": 16,
+        "title": "Through the Looking-Glass",
+        "author": 3,
+        "publisher": 1
+    },
+    {
+        "id": 17,
+        "title": "The Hobbit",
+        "author": 4,
+        "publisher": 3
+    },
+    {
+        "id": 18,
+        "title": "The Fellowship of the Ring",
+        "author": 4,
+        "publisher": 3
+    },
+    {
+        "id": 19,
+        "title": "The Two Towers",
+        "author": 4,
+        "publisher": 3
+    },
+    {
+        "id": 20,
+        "title": "The Return of the King",
+        "author": 4,
+        "publisher": 3
+    }
+]

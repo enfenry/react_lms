@@ -8,10 +8,10 @@ export class AuthorList extends React.Component{
 
     createAuthorRow(author){
         return (
-            <tr key={author.author_id}>
-                <td> {author.author_id} </td>
-                <td> {author.title} </td>
-                <td> {author.author} </td>
+            <tr key={author.id}>
+                <td> {author.id} </td>
+                <td> {author.firstName} </td>
+                <td> {author.lastName} </td>
             </tr>
         );
     }
@@ -41,8 +41,8 @@ export class AuthorList extends React.Component{
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Title</th>
-                            <th>Author</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                         </tr>
                     </thead>
                     <tbody>

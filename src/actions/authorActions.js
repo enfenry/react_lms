@@ -6,7 +6,7 @@ const AuthorsActions = {
         Dispatcher.dispatch({
             actionType: 'read_authors_started'
         });
-        axios.get(`http://www.mocky.io/v2/5daca80c30000092002987ad`)
+        axios.get(`http://www.mocky.io/v2/5e1bcad53100007a004f33da`)
         .then(res => {
             Dispatcher.dispatch({
                 actionType: 'read_authors_successful',

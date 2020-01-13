@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Header from './header.js';
 import Home from './home.js';
-import { AuthorList } from '../components/BookList';
+import { AuthorList } from '../components/AuthorList';
 import { BookList } from '../components/BookList';
 import AuthorStore from '../stores/authorStore';
 import BookStore from '../stores/bookStore';
