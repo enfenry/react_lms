@@ -1,5 +1,5 @@
 import Dispatcher from '../dispatcher/appDispatcher';
-import axios from 'axios'
+import axios from 'axios';
 
 const AuthorsActions = {
     readAuthors: function(){

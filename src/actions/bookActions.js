@@ -24,14 +24,24 @@ const BooksActions = {
         Dispatcher.dispatch({
             actionType: 'read_books_started'
         });
-        axios.post(`http://www.mocky.io/v2/5e1bca1d3100006c004f33d8`, book)
-            .then(res => {
-                console.log('addBook res.data', res.data);
-                Dispatcher.dispatch({
-                    actionType: 'read_books_successful',
-                    data: res.data
-                });
-            })
+
+        let payload = {
+            token: "93yNwqSZUQ6sJMEtHFIs8Q",
+            data: {
+                book
+            }
+        };
+
+        axios({
+            method: "post",
+            url: "https://app.fakejson.com/q",
+            data: payload
+        }).then(function (res) {
+            Dispatcher.dispatch({
+                actionType: 'add_books_successful',
+                data: res.data
+            });
+        })
             .catch((error) => {
                 console.log(error);
                 Dispatcher.dispatch({
@@ -43,14 +53,25 @@ const BooksActions = {
         Dispatcher.dispatch({
             actionType: 'read_books_started'
         });
-        axios.put(`http://www.mocky.io/v2/5e1bca1d3100006c004f33d8`, book)
-            .then(res => {
-                console.log('updateBook res.data', res.data);
-                Dispatcher.dispatch({
-                    actionType: 'read_books_successful',
-                    data: res.data
-                });
-            })
+
+        let payload = {
+            token: "93yNwqSZUQ6sJMEtHFIs8Q",
+            data: {
+                book
+            }
+        };
+
+        axios({
+            method: "put",
+            url: "https://app.fakejson.com/q",
+            data: payload
+        }).then(function (res) {
+            console.log('updateBook res.data', res.data);
+            Dispatcher.dispatch({
+                actionType: 'update_books_successful',
+                data: res.data
+            });
+        })
             .catch((error) => {
                 console.log(error);
                 Dispatcher.dispatch({
@@ -62,11 +83,23 @@ const BooksActions = {
         Dispatcher.dispatch({
             actionType: 'read_books_started'
         });
-        axios.delete(`http://www.mocky.io/v2/5e1bca1d3100006c004f33d8`, { params: { id: book.id } })
+
+        let payload = {
+            token: "93yNwqSZUQ6sJMEtHFIs8Q",
+            data: {
+                book
+            }
+        };
+        axios({
+            method: "put",
+            url: "https://app.fakejson.com/q",
+            data: payload,
+            params: { id: book.id }
+        })
             .then(res => {
                 console.log('deleteBook res.data', res.data);
                 Dispatcher.dispatch({
-                    actionType: 'read_books_successful',
+                    actionType: 'delete_books_successful',
                     data: res.data
                 });
             })

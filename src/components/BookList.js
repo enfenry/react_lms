@@ -87,7 +87,7 @@ export class BookList extends React.Component {
         return (
             <div>
                 <h1>Books</h1>
-                <BookModal modal={this.props.modal} toggleModal={this.props.toggleModal} />
+                <BookModal modal={this.props.modal} toggleModal={this.props.toggleModal} handleInputChange={this.props.handleInputChange} />
                 <Button color="primary" onClick={() => {this.handleAdd()}}>Add Book</Button>
                 {content}
             </div>
@@ -99,6 +99,7 @@ BookList.propTypes = {
     modal: PropTypes.object,
     toggleModal: PropTypes.func,
     fillModal: PropTypes.func,
+    handleInputChange: PropTypes.func,
     book: PropTypes.object.isRequired
 };
 

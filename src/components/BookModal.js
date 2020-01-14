@@ -8,17 +8,16 @@ import { Form, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reacts
 const BookModal = (props) => {
     const {
         modal,
-        toggleModal
+        toggleModal,
+        handleInputChange
     } = props;
 
     const handleSubmit = () => {
-        if(modal.book.isAdding) {
+        if (modal.book.isAdding) {
             BookActions.addBook(modal.book);
-            console.log('added!')
         }
         else {
             BookActions.updateBook(modal.book);
-            console.log('updated!')
         }
         toggleModal();
     }
@@ -30,15 +29,15 @@ const BookModal = (props) => {
                 <Form>
                     <div className="form-group">
                         <label htmlFor="recipient-name" className="col-form-label">Title:</label>
-                        <textarea className="form-control" id="title-name" defaultValue= {modal.book.title}/>
+                        <input className="form-control" id="title" value={modal.book.title || ''} onChange={(event) => handleInputChange(event)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="message-text" className="col-form-label">Author:</label>
-                        <textarea className="form-control" id="author-id" defaultValue= {modal.book.author}/>
+                        <input className="form-control" id="author" value={modal.book.author || ''} onChange={(event) => handleInputChange(event)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="message-text" className="col-form-label">Publisher:</label>
-                        <textarea className="form-control" id="publisher-id" defaultValue={modal.book.publisher} />
+                        <input className="form-control" id="publisher" value={modal.book.publisher || ''} onChange={(event) => handleInputChange(event)} />
                     </div>
                 </Form>
             </ModalBody>
@@ -52,7 +51,8 @@ const BookModal = (props) => {
 
 BookModal.propTypes = {
     modal: PropTypes.object.isRequired,
-    toggleModal: PropTypes.func.isRequired
+    toggleModal: PropTypes.func.isRequired,
+    handleInputChange: PropTypes.func,
 };
 
 export default BookModal;

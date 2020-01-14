@@ -20,8 +20,8 @@ export class App extends React.Component {
                 show: false,
                 book: {
                     title: '',
-                    author: null,
-                    publisher: null,
+                    author: '',
+                    publisher: '',
                     isAdding: false,
                 }
             },
@@ -72,6 +72,23 @@ export class App extends React.Component {
         })))
     }
 
+    handleInputChange(event) {
+        let id = event.target.id;
+        let value = event.target.value;
+        if (!(isNaN(parseInt(value)))) {
+            value = parseInt(value);
+        }
+        this.setState(state => (({
+            modal: {
+                ...state.modal,
+                book: {
+                    ...state.modal.book,
+                    [id]: value
+                }
+            }
+        })))
+    }
+
     render() {
         return (
             <div>
@@ -80,7 +97,7 @@ export class App extends React.Component {
                     <Route exact path='/' component={Home} />
                     <Route path='/books' render={(props) => (
                         <BookList {...props} book={this.state.book} modal={this.state.modal} toggleModal={this.toggleModal.bind(this)}
-                            fillModal={this.fillModal.bind(this)} />
+                            fillModal={this.fillModal.bind(this)} handleInputChange={this.handleInputChange.bind(this)} />
                     )} />
                     <Route path='/authors' render={(props) => (<AuthorList {...props} author={this.state.author} />)} />
                 </Switch>
