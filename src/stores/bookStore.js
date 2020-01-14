@@ -71,28 +71,34 @@ Dispatcher.register((action) => {
                 title: action.data.book.title,
                 author: action.data.book.author,
                 publisher: action.data.book.publisher
-            }
+            };
             _bookStore.book.bookList.push(newBook);
             _bookStore.book.readState.success = true;
             BookStore.emitChange();
             break;
         }
-        case 'update_books_successful':
+        case 'update_books_successful': {
             BookStore.resetReadState();
-            console.log('list', _bookStore.book.bookList);
-            console.log('action.data', action.data);
-            // _bookStore.book.bookList = action.data;
+            let newBook = {
+                id: action.data.book.id,
+                title: action.data.book.title,
+                author: action.data.book.author,
+                publisher: action.data.book.publisher
+            };
+            let index = _bookStore.book.bookList.findIndex(book => book.id == newBook.id);
+            _bookStore.book.bookList.splice(index, 1, newBook);
             _bookStore.book.readState.success = true;
             BookStore.emitChange();
             break;
-        case 'delete_books_successful':
+        }
+        case 'delete_books_successful': {
             BookStore.resetReadState();
-            console.log('list', _bookStore.book.bookList);
-            console.log('action.data', action.data);
-            // _bookStore.book.bookList = action.data;
+            let index = _bookStore.book.bookList.findIndex(book => book.id == action.data.book.id);
+            _bookStore.book.bookList.splice(index, 1);
             _bookStore.book.readState.success = true;
             BookStore.emitChange();
             break;
+        }
         default:
             return;
     }
